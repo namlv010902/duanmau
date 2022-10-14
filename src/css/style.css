@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    font-family: 'Inter', sans-serif;
+    width: 1440px;
+    margin: 0 auto;
+    padding-top: 25px;
+}
+
+main {
+    display: flex;
+
+}
+
+article {
+
+    width: 17%;
+    border-right: 2px solid black;
+    text-align: center;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+.logo img {
+    width: 30%;
+
+}
+
+article button {
+    width: 90%;
+    background-color: white;
+    border: none;
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    background-color: #6C5DD3;
+    color: white;
+    padding-left: 10px;
+
+}
+
+article a {
+    text-decoration: none;
+}
+
+article button:hover {
+    background-color: red;
+    /* background-color: #6C5DD3; */
+    color: white;
+
+
+}
+
+button img {
+    margin-right: 5px;
+}
+
+#avatar {
+    width: 20%;
+    border-radius: 50%;
+    margin-left: 30px;
+}
+
+aside {
+    padding-left: 30px;
+    width: 83%;
+
+
+}
+
+.infomation {
+    margin-top: 50px;
+}
+
+.comback {
+    display: flex;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.banner {
+    margin: 20px 0;
+    background-color: #6C5DD3;
+
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.image img {
+    width: 100%;
+
+}
+
+.image {
+
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 250px;
+}
+
+.banner_left {
+    padding-left: 50px;
+}
+
+.banner_left h1 {
+    font-size: 50px;
+    color: white;
+}
+
+.banner_left h4 {
+    font-size: 25px;
+    color: white;
+}
+
+#check {
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    padding: 10px 20px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+table,
+tr,
+th,
+td {
+    border: 1px solid darkorchid;
+    border-collapse: collapse;
+
+
+
+}
+
+#images {
+    width: 200px;
+}
+#price{
+    width: 100px;
+    text-align: center;
+}
+
+th {
+    background-color: #6C5DD3;
+    color: white;
+}
+
+td img {
+    width: 100%;
+}
+
+#name {
+    width: 150px;
+}
+
+table {
+
+    width: 100%;
+
+}
+
+#delete,
+#update {
+    font-size: 23px;
+
+}
+
+#add {
+    font-size: 22px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: darkslategray;
+    color: white;
+    margin: 10px 0;
+}
+
+#out {
+    border: none;
+    width: 100px;
+    font-size: 20px;
+    background-color: darkgreen;
+    color: white;
+    text-align: center;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+#out a {
+    text-decoration: none;
+    color: white;
+}
+
+article h2 {
+    margin-top: 10px;
+}
+
+.insi button {
+    margin: 5px 0;
+}
+
+td {
+    font-size: 20px;
+}
+
+#sale,#date,#category{
+    text-align: center;
+}
+
+#action {
+    display: flex;
+    align-items: center;
+}
