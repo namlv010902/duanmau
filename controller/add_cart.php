@@ -1,31 +1,20 @@
+<?php
+    include "../model/connect.php"; //import file connect.php từ thư mục model
+    session_start();
+    $idPerson = $_SESSION["id"];
+    $idItem = $_GET["id"];
+    $query = "select * from cart where ma_kh like n'$idPerson' AND ma_sp = $idItem";
+    $cartItem = getOne($query);
+    if(empty($cartItem)) {
+        $count = $_POST["so_luong"];
+        $query = "insert into cart(ma_kh,ma_sp,so_luong) values ('$idPerson', $idItem, $count);";
+        connect($query);
+    } else {
+        $count = $_POST["so_luong"] + $cartItem["so_luong"];
+        $query = "update cart set so_luong = $count where ma_kh like n'$idPerson' AND ma_sp=$idItem";
+        connect($query);
+    }
 
-  <?php
-  include "../model/connect.php";
-  session_start();
-  
-  $id = $_GET["id"];
-  if(empty($_SESSION["cart"][$id])){
-     $query = "SELECT * FROM products where id=$id";
-     $product= getOne($query); 
-     $_SESSION["cart"][$id]["image"]= $product["image"];
-     $_SESSION["cart"][$id]["productName"]= $product["productName"];
-     $_SESSION["cart"][$id]["productPrice"]= $product["productPrice"];
-     $_SESSION["cart"][$id]["quantity"]= 1;
-
-     $ma_sp=$_POST["id"];
-     $query ="INSERT INTO cart(ma_sp) values('$ma_sp')";
-     connect($query);
-     
-    
-  }else{
-    $_SESSION["cart"][$id]["quantity"]++;
-
-    $ma_sp=$_POST["id"];
-    $query ="INSERT INTO cart(ma_sp) values('$ma_sp')";
-    connect($query);
-  }
- 
-   header("location:../detail.php?id=$id");
-
-?> 
+    header("location:../detail.php?id=$idItem"); 
+?>
 

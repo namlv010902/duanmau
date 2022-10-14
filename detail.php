@@ -230,7 +230,7 @@
                         <?php if($_SESSION){?>
                  <form action="./controller/add_cart.php?id=<?php echo $id?>" method="post">
                                 <input type="text" name="id" hidden value="<?php $product["id"] ?>">
-                                <input class="so_luong" type="text" name="id" value="<?php $product["so_luong"] ?>">
+                                <input class="so_luong" type="number" name="so_luong" value="1">
                                  <button class="giam" type="button">-</button>
                                  <button class="tang" type="button">+</button>
                        <!-- <a onclick="return confirm('Bạn chắc muốn thêm vào giỏ hàng chứ !')" href=">"><button id="cartt">Thêm vào giỏ hàng</button></a> -->
