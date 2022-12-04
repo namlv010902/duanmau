@@ -14,7 +14,7 @@
 
 header {
     background-color: rgba(41, 41, 54, 1);
-    border-radius: 0 0 50px 50px;
+    border-radius: 0 0 50px 50px
    
 }
 
@@ -36,7 +36,8 @@ header {
 }
 
 .logo img {
-    border-radius: 0 0 0 40px;
+   margin-left: 30px;
+
 }
 nav{
     margin-left: 50px;
@@ -83,18 +84,25 @@ nav ul li a {
     color: white;
 }
 
-.trai form,
-input,
-select,
-button {
+.trai form {
     display: flex;
     align-items: center;
     background-color: rgba(60, 61, 72, 1);
     border: none;
     outline: none;
-    color: white;
     font-size: 18px;
 } 
+.trai select, input{
+    border: none;
+    background-color:rgba(60, 61, 72, 1) ;
+    color: white;
+    outline: none;
+    font-size: 19px;
+}
+.trai button{
+    background: none;
+    border: none;
+}
 
 .trai form {
     margin-left: 200px;
@@ -163,6 +171,8 @@ article {
 }
 article button{
     width: 90%;
+    border: none;
+    text-align: left;
 }
 
 aside {
@@ -194,6 +204,9 @@ main {
     background-color: rgba(43, 193, 184, 1);
     border: none;
     font-weight: 500;
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
 }
 
 .item {
@@ -208,6 +221,9 @@ main {
     padding: 15px;
     margin: auto;
     margin-top: 20px;
+    border: none;
+    color: white;
+    font-size: 20px;
 }
 
 .sale span {
@@ -339,6 +355,8 @@ article .fa {
     border: 2px solid white;
     margin-top: 30px;
     cursor: pointer;
+    color: white;
+    font-size: 19px;
 }
 #title {
     width: auto;
@@ -347,16 +365,15 @@ article .fa {
 .product {
     /* background-color: rgba(247, 250, 250, 1); */
     display: grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-gap: 30px;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap: 10px;
 }
 
 #locgia {
     width: 300px;
 }
-.colum{
-    box-shadow: 0 0 20px lightgray;
-}
+
+
 .colum a{
     color: black;
 }
@@ -374,6 +391,9 @@ article .fa {
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
+    border: none;
+    background-color: blueviolet;
+    color: white;
 }
 
 #form {
@@ -392,6 +412,9 @@ article .fa {
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 20px;
 }
 
 a {
@@ -419,6 +442,10 @@ a {
     background-color: rgba(43, 193, 184, 1);
     padding: 15px;
     border-radius: 100px;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
 }
 .img_product{
     overflow: hidden;
@@ -433,14 +460,18 @@ a {
     text-align: center;
     padding-bottom: 30px;
 
+        border-bottom: 2px solid #7330ec;
+       
+}
+.colum img{
+    border-radius: 15px;
+   
 }
 .colum button{
     margin: auto;
 }
 
-.colum:hover {
-    border: 3px solid rgba(43, 193, 184, 1);
-}
+
 
 section .leftt {
     background-color: rgba(242, 242, 242, 1);
@@ -452,7 +483,7 @@ section .leftt {
 
 section .leftt img{
     width: 100%;
-    position: absolute;
+   
     top: 40%;
 }
 
@@ -514,6 +545,7 @@ section {
     color: white;
     padding: 10px;
     margin-top: 20px;
+    font-size: 20px;
 }
 
 .black img {
@@ -530,13 +562,12 @@ section {
     background-color: rgba(1, 123, 196, 1);
     border-radius: 20px;
     height: 470px;
-    position: relative;
+   
     width: 30%;
 }
 
 .rightt img {
     width: 100%;
-    position: absolute;
     top: 40%;
 }
 .rightt{
@@ -637,6 +668,7 @@ em {
 
 footer button {
     background-color: rgba(43, 193, 184, 1);
+    
 }
 
 footer input {
@@ -656,6 +688,8 @@ footer button {
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
+    border: none;
+    color: white;
 }
 
 footer input:focus {
@@ -681,6 +715,7 @@ footer input:focus {
     background: none;
     color: black;
     margin-left: 30px;
+    font-size: 20px;
 }
 .rightt button{
     border-radius: 30px;
@@ -690,6 +725,7 @@ footer input:focus {
     background: none;
     color: white;
     margin-left: 30px;
+    font-size: 20px;
 }
 #prdgia{
     color: rgba(43, 193, 184, 1);
@@ -713,3 +749,4 @@ footer input:focus {
 .colum_tt img{
     height: 200px;
 }
+

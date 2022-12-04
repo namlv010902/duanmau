@@ -1,63 +1,9 @@
 <?php
-     include "../model/connect.php";
-    session_start();
-    $id= $_SESSION["id"];
-$query = "SELECT * FROM users where id like n'$id' ";
-$user= getOne($query);
-$nameErr = $passErr=$codeErr = $emailErr = "";
-$name = $pass =$email=$code="";
-if (isset($_POST["btn-add"])) {
-    if(empty($_POST["code"]) || empty($_POST["names"]) || empty($_POST["code"]) || empty($_POST["pass"]) || empty($_POST["email"]) ){
-    if (empty($_POST["code"])) {
-        $codeErr = "Mã đăng nhập is required";
-    } else {
-        $code = ($_POST["code"]);
-    };
-    if (empty($_POST["names"])) {
-        $nameErr = "Name is required";
-    } else {
-        $name = ($_POST["names"]);
-    };
-    if (empty($_POST["pass"])) {
-        $passErr = "Pass is required";
-    } else {
-        $pass = ($_POST["pass"]);
-    };
-    
-    if (empty($_POST["email"])) {
-        $emailErr = "Email is required";
-    } else {
-        $email = ($_POST["email"]);
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Invalid email format";
-        }
-    }
+include "../model/connect.php";
+session_start();
+$id = $_SESSION["id"];
 
-   
-}else{
-    $code= $_POST["code"];
-    $userName = $_POST["names"];
-    $password = $_POST["pass"];
-    $email = $_POST["email"];
-    if(empty($_FILES["image"]["name"])){
-        $avatar = $user["avatar"];
-     }else{
-        $avatar ='./src/images/'.$_FILES["image"]["name"];
-        $_SESSION["avatar"]=$avatar;
-     }
-     
-    $query = "UPDATE users SET id='$code', username='$userName', password='$password',email='$email', avatar='$avatar' where id like n'$id' ";
-    $_SESSION["id"]=$code;
-    $_SESSION["username"]=$userName;
-    $_SESSION["email"]=$email;
-    
-  
-    connect($query);
-    move_uploaded_file($_FILES["image"]["tmp_name"],"../src/images/".$_FILES["image"]["name"]);
-    header("location:./account.php"); 
-    }
-}
-    
+
 
 
 ?>
@@ -72,42 +18,47 @@ if (isset($_POST["btn-add"])) {
     <link rel="shortcut icon" href="../src/images/logoap.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/969bec5078.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/index.css">
     <script src="https://kit.fontawesome.com/969bec5078.js" crossorigin="anonymous"></script>
 </head>
 <style>
-   article .fa{
-       color: rgba(43, 193, 184, 1);
-       
+    article .fa {
+        color: rgba(43, 193, 184, 1);
+
 
     }
 
 
-  .detail_img{
-    border-radius: 30px;
-    border: 2px solid rgba(43, 193, 184, 1);
-    width: 400px;
-    margin-right: 40px;
-    margin-left: 80px;
-    
-  }
-  .detail_item{
-    width: 620px;
-  }
-  .detail_img img{
-    width: 100%;
-    border-radius: 30px;
-  }
-  #avatar{
+    .detail_img {
+        border-radius: 30px;
+        border: 2px solid rgba(43, 193, 184, 1);
+        width: 400px;
+        margin-right: 40px;
+        margin-left: 80px;
+
+    }
+
+    .detail_item {
+        width: 620px;
+    }
+
+    .detail_img img {
+        width: 100%;
+        border-radius: 30px;
+    }
+
+    #avatar {
         border-radius: 50%;
     }
-    #dangxuat{
+
+    #dangxuat {
         font-size: 18px;
         margin: 0 5px;
     }
-    #cartt{
+
+    #cartt {
         background-color: green;
         color: white;
         padding: 10px;
@@ -115,106 +66,140 @@ if (isset($_POST["btn-add"])) {
         cursor: pointer;
     }
 
-    .box {   
-    height: 350px;
-    overflow: hidden scroll;
-}
-.showComment {
-    width: 100%;
-    border-radius: 10px;
-    background: rgba(247, 226, 236, 0.75);
-    padding: 10px;
-    margin-top: 25px;
-}
+    .box {
+        height: 350px;
+        overflow: hidden scroll;
+    }
 
-.head {
-    display: flex;
-    align-items: center;
-}
+    .showComment {
+        width: 100%;
+        border-radius: 10px;
+        background: rgba(247, 226, 236, 0.75);
+        padding: 10px;
+        margin-top: 25px;
+    }
 
-.nameinfo {
-    flex: 1;
-    margin: 15px;
-    border-bottom: 1px solid rgba(233, 74, 151, 0.25);
-}
+    .head {
+        display: flex;
+        align-items: center;
+    }
 
-.avatar-comment {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-.avatar-comment img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.detail-comment {
-    margin-left: 65px;  
-}
-.textComment {
-    display: block;
-    margin: 10px 0;
-}
-footer{
-    margin-top: 50px;
-}
-table,tr,td,th{
-    border-collapse: collapse;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid green;
-    
-}
-table{
-    width: 70%;
-    margin-left: 30px;
-}
+    .nameinfo {
+        flex: 1;
+        margin: 15px;
+        border-bottom: 1px solid rgba(233, 74, 151, 0.25);
+    }
 
-#img{
-    width: 200px;
-    height: 50px;
-   
-}
-td img{
-    width: 100%;
+    .avatar-comment {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
 
-}
-td{
-    height: 210px;
-}
-#tt{
-    height: 30px;
-}
-th{
-    background-color: darkslategrey;
-    color: white;
-}
-#update a{
-    border: 1px solid gray;
-    padding: 0 5px;
-    font-size: 20px;
-    color: black;
-    
-}
-#update{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .avatar-comment img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-}
-.update_hs{
-    margin-top: 50px;   
-}
-.form input{
-    color:  black;
-    background: none;
-}
+    .detail-comment {
+        margin-left: 65px;
+    }
+
+    .textComment {
+        display: block;
+        margin: 10px 0;
+    }
+
+    footer {
+        margin-top: 50px;
+    }
+
+    table,
+    tr,
+    td,
+    th {
+        border-collapse: collapse;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid green;
+
+    }
+
+    table {
+        width: 70%;
+        margin-left: 30px;
+    }
+
+    #img {
+        width: 200px;
+        height: 50px;
+
+    }
+
+    td img {
+        width: 100%;
+
+    }
+
+    td {
+        height: 210px;
+    }
+
+    #tt {
+        height: 30px;
+    }
+
+    th {
+        background-color: darkslategrey;
+        color: white;
+    }
+
+    #update a {
+        border: 1px solid gray;
+        padding: 0 5px;
+        font-size: 20px;
+        color: black;
+
+    }
+
+    #update {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .update_hs {
+        margin-top: 50px;
+    }
+
+    .form input {
+        color: black;
+        background: none;
+        border-bottom: 1px dashed black;
+        margin-top: 15px;
+    }
+
+    #err {
+        color: red;
+    }
+
+    #luu {
+        background: rgba(47, 53, 58, 1);
+        border-radius: 5px;
+        color: white;
+        border: none;
+        cursor: pointer;
+
+    }
 </style>
+
 <body>
     <div class="container">
-        
-    <header>
+
+        <header>
             <div class="tren">
                 <div class="left">
                     <div class="logo">
@@ -222,7 +207,7 @@ th{
                     </div>
                     <nav>
                         <ul>
-                            <li><a href="">Trang chủ</a></li>
+                            <li><a href="../index.php">Trang chủ</a></li>
                             <li><a href="">Giới thiệu</a></li>
                             <li><a href="">Cửa hàng </a></li>
                             <li><a href="">Liên hệ</a></li>
@@ -232,7 +217,7 @@ th{
                 </div>
                 <div class="right">
                     <div class="info">
-                        <a href=""><i class="fas fa-envelope" id="mail"></i>info@domain.com |
+                        <a href=""><i class="fas fa-envelope" id="mail"></i>namlvph28063@fpt.edu.vn |
                         </a>
 
                         <a href="" id="so"><i class="fas fa-phone" id="phone"></i>0565079665 </a>
@@ -251,19 +236,19 @@ th{
                     </form>
                 </div>
                 <div class="phai">
-                    <?php if(empty($_SESSION)){ ?>
-                        <a  href="./view/login.php"><i class="fas fa-shopping-cart" id="cart"></i></a>
-                    <a href="./view/login.php"><i class="fas fa-user" id="user"></i></a>
-                   
-                 
-                    <?php }else{ ?>
-                        <a href="./view/view_cart.php"> <i class="fas fa-shopping-cart" id="cart"></i></a>
-                  
-                  <img id="avatar" height="40px" width="60px" src=".<?php echo $_SESSION["avatar"]?>" alt=""> <br>
-                  <a id="dangxuat" href="../controller/log_out.php">Đăng xuất</a>
-                 
-                  <?php }?>
-                  <a href=""><i class="fas fa-bell"></i></a>
+                    <?php if (empty($_SESSION["id"])) { ?>
+                        <a href="./login.php"><i class="fas fa-shopping-cart" id="cart"></i></a>
+                        <a href="./login.php"><i class="fas fa-user" id="user"></i></a>
+
+
+                    <?php } else { ?>
+                        <a href="./view-cart.php"> <i class="fas fa-shopping-cart" id="cart"></i></a>
+
+                        <img id="avatar" height="40px" width="60px" src=".<?php echo $_SESSION["avatar"] ?>" alt=""> <br>
+                        <a id="dangxuat" href="../controller/log_out.php">Đăng xuất</a>
+
+                    <?php } ?>
+                    <a href=""><i class="fas fa-bell"></i></a>
                 </div>
             </div>
 
@@ -282,36 +267,30 @@ th{
                 <button><i class="fa fa-mouse"></i></i> Phụ kiện</button>
             </article>
 
-            
-           <div class="form">
-            <form action="./account.php" method="POST" enctype="multipart/form-data">
-                <img height="200px" src=".<?php echo $_SESSION["avatar"]?>" alt="">
-                <input type="file" name="image"  value="<?php echo $user["avatar"]?> " hidden><br>
-                <label for="">Mã đăng nhập*</label> 
-                <input type="text" name="code" id="" value="<?php echo $user["id"]?>"><br>
-                <span id="err"><?php echo $codeErr?></span> 
-                <label for="">Tên đăng nhập*</label> <br>
-                <input type="text" name="names" id=""  value="<?php echo $user["username"]?>"> <br>
-                <span id="err"><?php echo $nameErr ?></span> <br>
+
+            <div class="form">
+              
+                   
+                    <img height="200px" style="border-radius: 50%; border:2px solid blue;" src=".<?php echo $_SESSION["avatar"] ?>" alt=""> <br>
+                     <span style="font-size:20px;">Mã đăng nhập: <em> <?php echo $_SESSION["id"] ?></em>(* only one) </span> <br>
+                    
+                     <span style="font-size:20px;">Tên đăng nhập: <em> <?php echo $_SESSION["username"] ?></em></span> <br>
+                     <span style="font-size:20px;">Mail: <em> <?php echo $_SESSION["email"] ?></em></span> <br>
+                  
+                  
+
+                  <a href="./update_accont.php?id=<?php echo $id ?>"><button id="luu" style="padding:10px 15px; font-size:20px;  margin-top: 30px;" type="submit" name="btn-add">Cập nhật tài khoản</button></a>
+                    <a href="./change_Password.php"> <button style="font-size:20px;color: white; padding: 10px 15px; border-radius: 5px; border: none; background-color: darkslategrey;" > Đổi mật khẩu</button></a>
+                    
                 
-          
-                <label for="">Password*</label> <br>
-                <input type="password" name="pass" id=""  value="<?php echo $user["password"]?>"> <br>
-                <span id="err"><?php echo $passErr ?></span> <br>
-                <label for="">Email*</label><br>
-                <input type="text" name="email" id=""  value="<?php echo $user["email"]?>"> <br>
-                <span id="err"><?php echo $emailErr ?></span> <br>
 
-                <button type="submit" name="btn-add">Submit</button>
 
-            </form>
-
-    
-           </div>
+            </div>
+            <a href="./lsmua.php">Lịch sử mua hàng</a>
         </main>
-         
-          
-          <footer>
+
+
+        <footer>
             <div class="colum_footer">
                 <div class="imgft">
                     <img src="https://www.webomates.com/wp-content/uploads/2020/09/API-300x270.png" alt="" height="130px" width="150px" alt="">
@@ -385,4 +364,5 @@ th{
 </body>
 
 </script>
+
 </html>

@@ -1,12 +1,24 @@
 <?php
      include "../model/connect.php";
-    session_start();
+    session_start(); 
+    
+    $alert = $_GET["id"];
+    
+    if(!empty($_SESSION["id"])){
+    $id=$_SESSION["id"];
+    // $query="SELECT c.id_cart, c.so_luong, c.ma_sp, p.id, p.productName, p.productPrice, p.image 
+    // from cart as c join products as p 
+    // on c.ma_sp = p.id where c.ma_kh like n'$id'";
+    // $cart = getAll($query);
     if(!empty($_SESSION["cart"])){
-        $cart = $_SESSION["cart"];
-        $count_money=0;
-      }
-
-
+    $cart = $_SESSION["cart"];
+    $count_money=0;
+    }
+    }
+    $query2 = "SELECT * FROM products where categoryId = 1";
+    $product = getAll($query2);
+   
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,22 +34,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/index.css">
     <script src="https://kit.fontawesome.com/969bec5078.js" crossorigin="anonymous"></script>
+
+    
 </head>
 <style>
+    
    article .fa{
-       color: rgba(43, 193, 184, 1);
-       
-
+       color: rgba(43, 193, 184, 1);   
     }
-
-
   .detail_img{
     border-radius: 30px;
     border: 2px solid rgba(43, 193, 184, 1);
     width: 400px;
     margin-right: 40px;
-    margin-left: 80px;
-    
+    margin-left: 80px;  
   }
   .detail_item{
     width: 620px;
@@ -109,9 +119,20 @@ table,tr,td,th{
     border-collapse: collapse;
     text-align: center;
     padding: 10px;
-    border: 1px solid green;
+   
     
 }
+table, tr,th,td{
+        border: none;
+     }
+     td{
+        background-color: white;
+     
+     }
+     
+     tr{
+        border-bottom: 15px solid rgba(230, 234, 241, 1);
+     }
 table{
     width: 70%;
     margin-left: 30px;
@@ -128,13 +149,15 @@ td img{
 }
 td{
     height: 210px;
+    font-size: 20px;
 }
 #tt{
     height: 30px;
 }
 th{
-    background-color: darkslategrey;
+    background-color: rgba(108, 93, 211, 1);
     color: white;
+    border: none;
 }
 #update a{
     border: 1px solid gray;
@@ -149,6 +172,9 @@ th{
     justify-content: center;
 
 }
+#ql_tk{
+    font-size: 18px;
+}
 </style>
 <body>
     <div class="container">
@@ -161,7 +187,7 @@ th{
                     </div>
                     <nav>
                         <ul>
-                            <li><a href="">Trang chủ</a></li>
+                            <li><a href="../index.php"><i class="fa fa-home"></i> Trang chủ</a></li>
                             <li><a href="">Giới thiệu</a></li>
                             <li><a href="">Cửa hàng </a></li>
                             <li><a href="">Liên hệ</a></li>
@@ -190,7 +216,7 @@ th{
                     </form>
                 </div>
                 <div class="phai">
-                    <?php if(empty($_SESSION)){ ?>
+                    <?php if(empty($_SESSION["id"])){ ?>
                         <a  href="./view/login.php"><i class="fas fa-shopping-cart" id="cart"></i></a>
                     <a href="./view/login.php"><i class="fas fa-user" id="user"></i></a>
                    
@@ -198,8 +224,8 @@ th{
                     <?php }else{ ?>
                         <a href="./view/view_cart.php"> <i class="fas fa-shopping-cart" id="cart"></i></a>
                   
-                  <img id="avatar" height="40px" width="60px" src=".<?php echo $_SESSION["avatar"]?>" alt=""> <br>
-                  <a id="dangxuat" href="../controller/log_out.php">Đăng xuất</a>
+                  <img id="avatar" class="user_hover" height="40px" width="60px" src=".<?php echo $_SESSION["avatar"]?>" alt=""> <br>
+                  
                  
                   <?php }?>
                   <a href=""><i class="fas fa-bell"></i></a>
@@ -207,8 +233,10 @@ th{
             </div>
 
         </header>
+        <p style="font-size: 25px;color: red;"> <?php echo $alert?></p>
         <main>
-            <article>
+           
+            <article >
                 <button><i class="fa fa-laptop"></i> Máy tính và phụ kiện</button>
                 <button><i class="fa fa-music"></i> Âm Thanh & Video</button>
                 <button><i class="fa fa-mobile-alt"></i> Điện Thoại Di Động</button>
@@ -219,10 +247,13 @@ th{
                 <button> <i class="fa fa-headphones"></i>Tai Nghe & Loa</button>
                 <button><i class="fa fa-laptop"></i> Đồ gia dụng</button>
                 <button><i class="fa fa-mouse"></i></i> Phụ kiện</button>
+              
             </article>
-        <?php 
-      if(!empty($_SESSION["cart"])){ ?>
-    <table border="1">
+        
+     <!-- <?php if(!empty($cart)){ ?>
+        <div class="cart_right" style="width: 80%;">
+       
+    <table border="1" style="width:90% ;" >
         <thead>
             <tr>
                 <th id="">Ảnh sản phẩm</th>
@@ -235,31 +266,104 @@ th{
         </thead>
         <tbody>
            
-             <?php foreach($cart as $id => $product):?>              
+             <?php foreach($cart as $value):?>              
                 <tr>
-                   <td id="img"><img src="<?php echo $product["image"]?>"></td>
-                   <td><?php echo $product["productName"]?></td>
-                   <td>$<?php echo $product["productPrice"]?></td>
-                   <td id="update"><a id="delete" href="../controller/update_cart.php?id=<?php echo $id?>&type=decre" >-</a> <a href=""><?php echo $product["quantity"]?></a> 
-                   <a href="../controller/update_cart.php?id=<?php echo $id?>&type=incre">+</a>
-                </td>
-                   <td>$<?php $result= $product["productPrice"] * $product["quantity"];  echo $result?></td>
-                   <td> <a href="./delete_cart.php?id=<?php echo $id?>">X</a> </td>               
+                    <?php $_SESSION["id_cart"]= $value["id_cart"]?>
+                   <td id="img"><img src="<?php echo $value["image"]?>"></td>
+                   <td><?php echo $value["productName"]?></td>
+                   <td>$<?php echo $value["productPrice"]?></td>
+                   <td><?php echo $value["so_luong"]?></td>
+                   <td>$<?php $result= $value["productPrice"] * $value["so_luong"];  echo $result?></td>
+                   <td> <a style="font-size: 25px;" onclick="return confirm('Xóa khỏi giỏ hàng')" href="../controller/delete_cart.php?id=<?php echo $value["id_cart"] ?>"><i style="color:red" class="fa fa-trash-alt"></i></a> </td>               
                 </tr>
                 <?php $count_money = $count_money + $result ?>
                 <?php endforeach?>
                 <tr>            
-                    <th id="tt" colspan="6">Tổng tiền: $<?php echo $count_money?></th>
+                    <th id="tt" colspan="6">Tổng tiền: $<?php echo $count_money ?></th>
                 </tr>
              
             
         </tbody>
     </table>  
+       <div class="muahang" style="text-align: right; margin-right: 150px;">
+      <a href="./thanh_toan.php"> <button style="font-size: 20px; padding: 10px 20px; margin-top: 20px; background-color: #FF754C; border: none; border-radius: 10px; color:white;">Mua hàng</button></a>
+       </div>
+            </div>
+     <?php }else{?>
+        <div class="cartErr" style="text-align:center ; width: 80%; margin-top: 50px;">
+            <img height="200px" src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f49e36beaf32db.png" alt="">
+        <h3>Giỏ hàng của bạn trống</h3>
+         <a href="../index.php"><button style="font-size:20px; margin-top: 20px; cursor: pointer; background-color: rgba(47, 53, 58, 1) ; padding: 10px 20px; color: white; border-radius: 10px;">Mua ngay</button></a>
+        </div>
+        
+        <?php }?> -->
+
+        <?php 
+      if(!empty($_SESSION["cart"])){ ?>
+       
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ảnh sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>đơn giá</th>
+                <th>số lượng</th>
+                <th>thành tiền</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+             <?php foreach($cart as $id => $product):?> 
+                             
+                <tr>
+                   <td><img src="<?php echo $product["images"]?>"></td>
+                   <td><?php echo $product["productName"]?></td>
+                   <td><?php echo $product["productPrice"]?></td>
+                   <td id="update"><a id="delete" href="../controller/update_cart.php?id=<?php echo $id?>&type=decre" >-</a> <?php echo $product["quantity"]?>
+                   <a href="../controller/update_cart.php?id=<?php echo $id?>&type=incre">+</a>
+                </td>
+                   <td><?php $result= $product["productPrice"] * $product["quantity"];  echo $result?></td>
+                   <td> <a href="./delete_cart.php?id=<?php echo $id?>">X</a> </td>               
+                </tr>
+                <?php $count_money = $count_money + $result ?>
+        
+                <?php endforeach?>
+                <tr>            
+                    <th id="tt" colspan="6">Tổng tiền:<?php echo $count_money?></th>
+                    <!-- <?php $money = $_SESSION["cart"][$count_money] ?> -->
+                </tr>
+              
+             
+            
+        </tbody>
+    </table>  
     <?php }else{ ?>
-                <h1>Giỏ hàng trống</h1>
+                <h1>giỏ hàng trống</h1>
             
             <?php }?>
+            <a href="./thanh_toan.php"> <button style="font-size: 20px; padding: 10px 20px; margin-top: 20px; background-color: #FF754C; border: none; border-radius: 10px; color:white;">Mua hàng</button></a>
+
         </main>
+        <div class="title">
+            <h1>Có thể bạn cũng thích</h1>
+        </div>
+        <div class="product">
+            <?php foreach ($product as $value) : ?>
+                <div class="colum">
+                    <a href="../detail.php?id=<?php echo $value["id"] ?>">
+                      <div class="img_product">
+                         <img style="margin-top:15px; width: 90%;" src="<?php echo $value["image"] ?>" alt="">
+                         </div> 
+                        <h3><?php echo $value["productName"] ?></h3>
+                        <p id="prdgia">Giá: $<?php echo $value["productPrice"] ?></p>
+                    </a>
+                    <button id="mua_prd">Mua hàng</button>
+                      
+                </div>
+            <?php endforeach ?>
+        </div>
+        
          
           
           <footer>
@@ -331,9 +435,20 @@ th{
             </div>
         </footer>
     </div>
-
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+   <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+   <script>
+     tippy('.user_hover', {
+        content: '<a id="dangxuat" href="../controller/log_out.php">Đăng xuất</a> <br> <a id="ql_tk" href="./account.php">Quản lý tài khoản</a> ',
+        allowHTML: true, 
+        placement: 'bottom',
+        delay: [0, 1000],
+        duration: [0, 1000],
+        interactive: true,
+      });
+  </script>
 
 </body>
 
-</script>
+
 </html>

@@ -7,6 +7,10 @@
     <title>Document</title>
     <script src="https://kit.fontawesome.com/969bec5078.js" crossorigin="anonymous"></script>
     <style>
+        .product{
+            
+            width: 400px;
+        }
         .product img{
             width: 100%;
         }
@@ -45,9 +49,7 @@
         }
         .slick-dots li{
             display: inline-block;
-            
-            
-           
+         
         }
         .slick-dots .slick-active button{
             background-color: red;

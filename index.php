@@ -1,52 +1,93 @@
 <?php
-     session_start();
- 
-     
+     session_start(); 
+    
      include "./model/connect.php";
-  
-if (empty($_POST["search"])) {
-    $query = "select * from products where categoryId=3";
-    $pho_bien = getAll($query);
-} else {
-    $search = $_POST["search"];
-    $query = "select * from products where categoryId=3 and productName like '%$search%'";
-    $pho_bien = getAll($query);
-}
-
+     $querylv= 'SELECT id  FROM love ';
+     $love = getAll($querylv);
 if (empty($_POST["search"])) {
     $query = "select * from products where categoryId=1";
-    $giam_gia = getAll($query);
+    $dong_ho = getAll($query);
 } else {
     $search = $_POST["search"];
     $query = "select * from products where categoryId=1 and productName like '%$search%'";
-    $giam_gia = getAll($query);
+    $dong_ho = getAll($query);
 }
 
 if (empty($_POST["search"])) {
     $query = "select * from products where categoryId=2";
-    $moi_nhat = getAll($query);
+    $tan_nhiet = getAll($query);
 } else {
     $search = $_POST["search"];
     $query = "select * from products where categoryId=2 and productName like '%$search%'";
-    $moi_nhat = getAll($query);
+    $tan_nhiet = getAll($query);
 }
+if (empty($_POST["search"])) {
+    $query = "select * from products where categoryId=3";
+    $camera = getAll($query);
+} else {
+    $search = $_POST["search"];
+    $query = "select * from products where categoryId=3 and productName like '%$search%'";
+    $camera = getAll($query);
+}
+if (empty($_POST["search"])){
+    $query = "select * from products where categoryId=4";
+    $loa = getAll($query);
+} else {
+    $search = $_POST["search"];
+    $query = "select * from products where categoryId=4 and productName like '%$search%'";
+    $loa = getAll($query);
+}
+
+if (empty($_POST["search"])) {
+    $query = "select * from products where categoryId=5";
+    $tai_nghe = getAll($query);
+} else {
+    $search = $_POST["search"];
+    $query = "select * from products where categoryId=5 and productName like '%$search%'";
+    $tai_nghe = getAll($query);
+}
+
+if (empty($_POST["search"])) {
+    $query = "select * from products where categoryId=6";
+    $pho_bien = getAll($query);
+} else {
+    $search = $_POST["search"];
+    $query = "select * from products where categoryId=6 and pro-ductName like '%$search%'";
+    $pho_bien = getAll($query);
+}
+
 
 if (!empty($_POST["price"])) {
     $price = $_POST["price"];
-    $query = "SELECT * FROM products where categoryId=3 and productPrice <= $price ";
-    $pho_bien = getAll($query);
-}
-if (!empty($_POST["price"])) {
-    $price = $_POST["price"];
     $query = "SELECT * FROM products where categoryId=1 and productPrice <= $price ";
-    $giam_gia = getAll($query);
+    $dong_ho = getAll($query);
 }
 if (!empty($_POST["price"])) {
     $price = $_POST["price"];
     $query = "SELECT * FROM products where categoryId=2 and productPrice <= $price ";
-    $moi_nhat = getAll($query);
+    $tan_nhiet = getAll($query);
+}
+if (!empty($_POST["price"])) {
+    $price = $_POST["price"];
+    $query = "SELECT * FROM products where categoryId=3 and productPrice <= $price ";
+    $camera = getAll($query);
 }
 
+if (!empty($_POST["price"])) {
+    $price = $_POST["price"];
+    $query = "SELECT * FROM products where categoryId=4 and productPrice <= $price ";
+    $loa = getAll($query);
+}
+if (!empty($_POST["price"])) {
+    $price = $_POST["price"];
+    $query = "SELECT * FROM products where categoryId=5 and productPrice <= $price ";
+    $tai_nghe = getAll($query);
+}
+if (!empty($_POST["price"])) {
+    $price = $_POST["price"];
+    $query = "SELECT * FROM products where categoryId=6 and productPrice <= $price ";
+    $pho_bien = getAll($query);
+}
 
 
 ?>
@@ -68,9 +109,14 @@ if (!empty($_POST["price"])) {
     <link rel="stylesheet" href="./src/css/index.css">
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
     <script src="https://kit.fontawesome.com/969bec5078.js" crossorigin="anonymous"></script>
-    
+      
+  
 </head>
 <style>
+    #love:hover{
+        color: red;
+        
+    }
     #cart:hover {
         color: yellow;
     }
@@ -95,10 +141,12 @@ if (!empty($_POST["price"])) {
         padding: 10px;
         background: none;
         color: rebeccapurple;
+        border: none;
 
     }
 
     .slick-next {
+        border: none;
         position: absolute;
         top: 50%;
         right: 0%;
@@ -160,9 +208,24 @@ if (!empty($_POST["price"])) {
     }
     #user_hover{
         background: none;
+        border: none;
     }
     #ql_tk{
         font-size: 18px;
+    }
+    #dong_ho{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+   .product h3:hover{
+    text-decoration: underline;
+    color: #7380ec;
+   }
+    .container{
+        background: rgba(248, 249, 250, 1);
+    }
+    .colum:hover{
+        box-shadow: 0 0 10px lightgrey;
     }
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -178,7 +241,7 @@ if (!empty($_POST["price"])) {
             <div class="tren">
                 <div class="left">
                     <div class="logo">
-                        <a href="./index.php"><img src="https://www.webomates.com/wp-content/uploads/2020/09/API-300x270.png" alt="" height="110px" width="120px"></a>
+                        <a href="./index.php"><img src="https://www.webomates.com/wp-content/uploads/2020/09/API-300x270.png" alt="" height="85px" width="90px"></a>
                     </div>
                     <nav>
                         <ul>
@@ -192,7 +255,7 @@ if (!empty($_POST["price"])) {
                 </div>
                 <div class="right">
                     <div class="info">
-                        <a href=""><i class="fas fa-envelope" id="mail"></i>info@domain.com |
+                        <a href=""><i class="fas fa-envelope" id="mail"></i>namlvph28063@fpt.edu.vn 
                         </a>
 
                         <a href="" id="so"><i class="fas fa-phone" id="phone"></i>0565079665 </a>
@@ -201,23 +264,33 @@ if (!empty($_POST["price"])) {
             </div>
             <div class="duoi">
                 <div class="trai">
+                  
                     <a href=""> <i class="fas fa-bars" id="cate"></i> Danh mục sản phẩm</a>
                     <form action="./index.php" method="POST">
-                        <select name="" id="">
-                            <option value="">Tất cả sản phẩm</option>
+                        <select name="Filter_Select" id="">
+                            <option value="" hidden>Tất cả sản phẩm</option>
+                            
                         </select>
                         <input type="text" name="search" placeholder="Tìm kiếm sản phẩm...">
-                        <button id="search" type="submit"><i class="fas fa-search"></i></button>
+                        <button id="search" type="submit" name="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
                 <div class="phai">
-                    <?php if(empty($_SESSION)){ ?>
+                <?php if(empty($_SESSION["id"])){ ?>
+                    <a href="./view/login.php">Sản phẩm yêu thích </a>
+                   
+                    <?php }else{ ?>
+                        <a href="./view/lsmua.php" style="font-size: 18px;margin-right: 30px;">Lịch sử đơn hàng</a>
+                        <a href="./view/view_love.php"><i class="fa fa-heart"></i></a>
+
+                        <?php } ?>
+                    <?php if(empty($_SESSION["id"])){ ?>
                         <a href="./view/login.php"><i class="fas fa-shopping-cart" id="cart"></i></a>
                     <a href="./view/login.php"><i class="fas fa-user" id="user"></i></a>
                    
                  
                     <?php }else{ ?>
-                        <a href="./view/view-cart.php"> <i class="fas fa-shopping-cart" id="cart"></i></a>
+                        <a href="./view/view-cart.php?id="> <i class="fas fa-shopping-cart" id="cart"></i></a>
                   
                <button id="user_hover"><img id="avatar" height="40px" width="60px" src="<?php echo $_SESSION["avatar"]?>" alt=""> </button> <br>
                  
@@ -269,7 +342,7 @@ if (!empty($_POST["price"])) {
             </div>
             <aside>
                 <div class="sale">
-                    <button id="giam">Giảm giá!</button>
+                    <button id="giam">SALE</button>
                     <div class="tulanh">
                         <img src="https://sieuthidienmay2.shostweb.com/wp-content/uploads/2021/09/Group-7881-600x600-1.png" alt="">
                     </div>
@@ -365,26 +438,62 @@ if (!empty($_POST["price"])) {
                         </div> 
                         <p id="prdgia">Giá: $<?php echo $value["productPrice"] ?></p>
                     </a>
-                    <button id="mua_prd">Mua hàng</button>
+                    <?php 
+ if(!empty($_SESSION["id"])){
+    $id = $_SESSION["id"];
+    
+                   $id_prd= $value["id"];
+                    $sql = "SELECT * from love where id_product = $id_prd and id_user like n'$id' ";
+                    $faver = getAll($sql);
+                    if(count($faver) != 0){?>
+                       
+                        <a onclick="return confirm('Xóa khỏi sản phẩm yêu thích')" href="./controller/delete_love.php?id=<?php echo $value["id"]?>"><i style="font-size: 20px; color: red;" class="fa fa-heart"></i></a>
+     
+                    <?php }else{?>
+                        <a onclick="return alert('Thêm vào sản phẩm yêu thích')" href="./controller/love.php?id=<?php echo $value["id"] ?>"><i id="love" style="font-size: 25px;" class="far fa-heart"></i></a>
 
+                    <?php }?>
+                   
+                    
+                 <?php   }?>
+                 <button id="mua_prd">Mua hàng</button>
                 </div>
             <?php endforeach ?>
         </div>
         <div class="title">
-            <h1>Giảm giá</h1>
+            <h1>Đồng hồ</h1>
             <a href=""> <button>Xem thêm ></button></a>
         </div>
         <div class="product">
-            <?php foreach ($giam_gia as $value) : ?>
+            <?php foreach ($dong_ho as $value) : ?>
                 <div class="colum">
                 <a href="./detail.php?id=<?php echo $value["id"]?>">
                     <div class="img_product">
-                  <img src="<?php echo $value["image"] ?>" alt="">
+                  <img style="width:80% ;" id="dong_ho" src="<?php echo $value["image"] ?>" alt="">
                     </div>
                     <h3><?php echo $value["productName"] ?></h3>
                     <p id="prdgia">Giá: $<?php echo $value["productPrice"] ?></p>
                     <button id="mua_prd">Mua hàng</button>
                     </a> 
+
+                </div>
+            <?php endforeach ?>
+        </div>
+        <div class="title">
+            <h1>Loa</h1>
+            <a href=""> <button>Xem thêm ></button></a>
+        </div>
+        <div class="product">
+            <?php foreach ($loa as $value) : ?>
+                <div class="colum">
+                    <a href="./detail.php?id=<?php echo $value["id"] ?>">
+                      <div class="img_product">
+                         <img src="<?php echo $value["image"] ?>" alt="">
+                         </div> 
+                        <h3><?php echo $value["productName"] ?></h3>
+                        <p id="prdgia">Giá: $<?php echo $value["productPrice"] ?></p>
+                    </a>
+                    <button id="mua_prd">Mua hàng</button>
 
                 </div>
             <?php endforeach ?>
@@ -429,16 +538,56 @@ if (!empty($_POST["price"])) {
                 <img src="https://sieuthidienmay2.shostweb.com/wp-content/uploads/2021/09/may-anh.png" alt="">
             </div>
         </section>
+        
         <div class="title">
-            <h1>Sản phẩm mới nhất</h1>
+            <h1>Tai nghe</h1>
             <a href=""> <button>Xem thêm ></button></a>
         </div>
         <div class="product">
-            <?php foreach ($moi_nhat as $value) : ?>
+            <?php foreach ($tai_nghe as $value) : ?>
+                <div class="colum">
+                    <a href="./detail.php?id=<?php echo $value["id"] ?>">
+                      <div class="img_product">
+                         <img style="margin-top:15px; width: 90%;" src="<?php echo $value["image"] ?>" alt="">
+                         </div> 
+                        <h3><?php echo $value["productName"] ?></h3>
+                        <p id="prdgia">Giá: $<?php echo $value["productPrice"] ?></p>
+                    </a>
+                    <button id="mua_prd">Mua hàng</button>
+
+                </div>
+            <?php endforeach ?>
+        </div>
+
+        <div class="title">
+            <h1>Cammera</h1>
+            <a href=""> <button>Xem thêm ></button></a>
+        </div>
+        <div class="product">
+            <?php foreach ($camera as $value) : ?>
                 <div class="colum">
                     <a href="./detail.php?id=<?php echo $value["id"] ?>">
                       <div class="img_product">
                          <img src="<?php echo $value["image"] ?>" alt="">
+                         </div> 
+                        <h3><?php echo $value["productName"] ?></h3>
+                        <p id="prdgia">Giá: $<?php echo $value["productPrice"] ?></p>
+                    </a>
+                    <button id="mua_prd">Mua hàng</button>
+
+                </div>
+            <?php endforeach ?>
+        </div>
+        <div class="title">
+            <h1>Tản nhiệt</h1>
+            <a href=""> <button>Xem thêm ></button></a>
+        </div>
+        <div class="product">
+            <?php foreach ($tan_nhiet as $value) : ?>
+                <div class="colum">
+                    <a href="./detail.php?id=<?php echo $value["id"] ?>">
+                      <div class="img_product">
+                         <img style="width: 75%; margin-top:20px;" src="<?php echo $value["image"] ?>" alt="">
                          </div> 
                         <h3><?php echo $value["productName"] ?></h3>
                         <p id="prdgia">Giá: $<?php echo $value["productPrice"] ?></p>
@@ -570,7 +719,7 @@ if (!empty($_POST["price"])) {
    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
    <script>
      tippy('#user_hover', {
-        content: '<a id="dangxuat" href="./controller/log_out.php">Đăng xuất</a> <br> <a id="ql_tk" href="./view/account.php?id=<?php echo $_SESSION["id"]?>">Quản lý tài khoản</a> ',
+        content: '<a id="dangxuat" href="./controller/log_out.php">Đăng xuất</a> <br> <a id="ql_tk" href="./view/account.php">Quản lý tài khoản</a> ',
         allowHTML: true, 
         placement: 'bottom',
         delay: [0, 1000],

@@ -19,7 +19,12 @@
             $name=$_POST["names"];
            
         };
+        if(empty($_FILES["image"]["name"])){
+            $codeErr="Code login is required";
+        }else{
+            $code=$_POST["code"];
            
+        };
       
         if(!empty($_POST["pass"])){
             $pass=$_POST["pass"];
@@ -36,27 +41,9 @@
                 $mailErr = "Invalid email format";
             }
         }
-           
-        
-
-        if(!empty($_POST["code"]) && !empty($_POST["names"]) && !empty($_POST["pass"]) && !empty($_POST["mail"]) ){
-            $name=$_POST["names"];
-            $query= "select * from users where username like n'$name'";
-            $users = getAll($query); 
-            if(count($users) != 0){
-                $namErr="Tên người dùng đã tồn tại";
-    
-            }else{
-          
-          
-         
-        
-         
-          
-           
-        }
+        // header("location:../controller/update_user.php");
     }
-    }
+  
         
     
         
@@ -107,37 +94,54 @@
     #err{
         color: red;
     }
+    .form label{
+        font-size: 20px;
+    }
+    .form{
+       
+        width: 50%;
+        margin: auto;
+    }
+    .form input{
+       font-size: 20px;
+       padding: 10px;
+       
+    }
     
  </style>
 <body>
     <div class="container">
         <main>
-            <article>
+        <article>
                 <div class="logo">
                     <img src="../src/images/logoap.png" alt="">
                 </div>
                 <h3>Admin tools</h3>
                 <div class="infomation">
-                <a href="./admin.php" id="but"><button><img src="../src/images/label.png" alt="">Product </button></a><br>
-                <a href="./categories.php"><button><img src="../src/images/label.png" alt="">Categories </button></a> <br>
+                <a href="../admin.php" id="but"><button ><i class="fab fa-vaadin" style="margin-right:10px;"></i>Dashboard </button></a><br>
 
-                <a href="./users.php"><button><img src="../src/images/label.png" alt="">User </button> </a> <br>
-                <a href=""><button><img src="../src/images/caidat.png" alt=""> Settings</button></a>
+                <a href="../product.php" id="but"><button><i class="fab fa-sketch" style="margin-right:10px;"></i>Product </button></a><br>
+                <a href="./category.php"><button><i class="fab fa-sellsy"  style="margin-right:10px;"></i>Categories </button></a> <br>
+
+                <a href="./user.php"><button style="background-color:#6C5DD3; cursor: pointer; border-left: 8px solid red; "><i class="fa fa-user-nurse"  style="margin-right:10px;"></i> User </button> </a> <br>
+                <a href="./comment.php"><button><i class="fa fa-comment-alt"  style="margin-right:10px;"></i></i>Comment</button></a>
+                <a href="./thong_ke.php"><button><i class="fab fa-deezer" style="margin-right:10px;"></i>Statistics</button></a>
+                <a href="./oder.php"><button><i class="fas fa-cart-plus" style="margin-right:10px;"></i>Oder</button></a>
                
                 
                 </div>
                 <h2>Insights</h2>
                 <div class="insi">
-                <button><img src="../src/images/inbox.png" alt="">In box</button>
-                <button><img src="../src/images/bell.png" alt="">Nofitication</button>
-                <button><img src="../src/images/coment.png" alt="">Comment</button>
+                <button><i class="fab fa-instalod" style="margin-right:10px;"></i>In box</button>
+                <button><i class="fab fa-gitlab" style="margin-right:10px;"></i>Nofitication</button>
+               
                 </div>
-                <button><img src="../src/images/help.png" alt=""> Helps</button>
+           <button > <a href="./controller/log_out.php" style="color: white;"> <i style="color: white;margin-right: 10px;" class="fas fa-sign-out" style="margin-right:10px; "></i>Log Out</a> </button>  
             </article>
             <aside>
                 <header>
                     <div class="left">
-                    <img id="avatar" src=".<?php echo $_SESSION["avatar"]?>" alt="">
+                    <img id="avatars" src=".<?php echo $_SESSION["avatar"]?>" alt="">
                     <div class="nam_tich_xanh">
                     <h2>Hi, <?php echo $_SESSION["username"]?></h2>
                     <img height="22px" src="../src/images/tichxanh.jpg"  alt="">
@@ -147,11 +151,18 @@
                         <img src="../src/images/medal.png" alt="">
                     </div>
                     </div>
-                    <div class="right">                         
-                        
-                        <button id="out">
-                      <a onclick="return confirm('Bạn có muốn đăng xuất không')" href="../controller/log_out.php">Log Out</a> 
-                        </button>
+                    <div class="right" style="display: flex; align-items: center;">                         
+                     <form action="">
+                   
+                      <button><i style="font-size: 25px;" class="fas fa-search"></i></button>
+                      <input placeholder="Search..." type="text">
+                     </form>
+                     <div class="bell" style="display:flex;">
+                     <i style="font-size:30px; margin-top:10px;" class="far fa-bell"></i>
+                     <p style=" display: flex; align-items: center; justify-content: center;color: white ; background-color:#FF754C ; height: 25px ; width:25px; border-radius: 50%;">3</p>
+                     </div>
+                       
+                       
                        
                     </div>
                 </header>
@@ -166,42 +177,43 @@
                     </div>
                 </div>
                
-                 <h1>Update users</h1>
+                 <h1 style="text-align: center;">Update users</h1>
+                 <div class="form">
                  <form action="../controller/update_user.php" method="post" enctype="multipart/form-data">
                 <input type="text" value="<?php echo $users["id"]?>" name="id" hidden>
-                 <label for="">Code login</label><br>
-                  <input type="text" value="<?php echo $users["id"]?>" name="code"> <br>
+                 <label for="">Mã đăng nhập</label><br>
+                  <input type="text" value="<?php echo $users["id"]?>" name="code" style="width: 100%; border: 2px solid #6C5DD3; border-radius: 7px;"> <br>
                   <span id="err"><?php echo $codeErr?></span> <br>
                    
                   <label for="">Avatar</label><br>
-                  <input type="file" value=".<?php echo $users["avatar"]?>" name="avatars"> <br>
-                 
+                  <input type="file" value=".<?php echo $users["avatar"]?>" name="avatars"> <br>      
                   
-                  <label for="">UserName</label><br>
-                  <input type="text" value="<?php echo $users["username"]?>" name="names"> <br>
+                  <label for="">Họ tên</label><br>
+                  <input type="text" value="<?php echo $users["username"]?>" name="names" style="width: 100%; border: 2px solid #6C5DD3; border-radius: 7px;"> <br>
                   <span id="err"><?php echo $namErr?></span> <br>
 
-                  <label for="">Password</label><br>
-                  <input type="password" value="<?php echo $users["password"]?>" name="pass"> <br>
+                  <label for="">Mật khẩu</label><br>
+                  <input type="password" value="<?php echo $users["password"]?>" name="pass" style="width: 100%; border: 2px solid #6C5DD3; border-radius: 7px;"> <br>
                   <span id="err"><?php echo $passErr?></span> <br>
 
                   <label for="">Email</label><br>
-                  <input type="text" value="<?php echo $users["email"]?>" name="mail"> <br>
+                  <input type="text" value="<?php echo $users["email"]?>" name="mail" style="width: 100%; border: 2px solid #6C5DD3; border-radius: 7px;"> <br>
                   <span id="err"><?php echo $mailErr?></span> <br>
                   
-                  <label for="">Role</label><br>
+                  <label for="">Vai trò</label><br>
                   <input type="radio" checked value="Khách hàng" name="role">Khách hàng
                   <input type="radio" value="Nhân viên" name="role">Nhân viên<br>
                   
                   
                   
-                  <label for="">Status</label><br>
+                  <label for="">Kích hoạt</label><br>
                   <input type="radio" value="Kích hoạt" checked name="status">Kích hoạt
                   <input type="radio" value="Chưa kích hoạt" name="status">Chưa kích hoạt<br>
                  
-                  <button type="submit" name="submit">Add</button>
+                  <button type="submit" name="submit" style="border: 1px solid #6C5DD3; outline: none; border-radius: 5px;padding: 10px; font-size: 20px; background-color: #FF754C; color: #ffff; border: none; margin-top: 10px; width: 100%;">Update</button>
                    
                  </form>
+                 </div>
             </aside>
         </main>
     </div>

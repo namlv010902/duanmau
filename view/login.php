@@ -3,6 +3,7 @@
      include "../model/connect.php"; 
      $query = "select * from users"; 
      $users = getAll($query); 
+    //  var_dump($users);die;
      $Err="";
      $non_matching="";
      $codeErr= $passErr="";
@@ -10,10 +11,8 @@
      
      foreach($users as $value){ 
          if(isset($_POST["btn-login"])){ 
-
               if(!empty($_POST["code"]) && !empty($_POST["pass"])){       
-                
-                 
+         
                  if($_POST["code"] == $value["id"] && $_POST["pass"] == $value["password"]){
                   $_SESSION["avatar"] = $value["avatar"];
                   $_SESSION["id"]=$value["id"];
@@ -60,7 +59,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
     <title>Document</title>
-    <link rel="stylesheet" href="../src/css/llogin.css">
+    <link rel="stylesheet" href="../src/css/sign_up.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
 </head>
@@ -87,8 +86,9 @@
 </style>
 <body>
     <div class="container">
+      <img src="../src/images/logoap.png" height="80px" alt="" style="">
     <h1>Đăng nhập</h1>
-    <div class="form">
+    <div class="form" style="margin-left:50px;">
     <form action="login.php" method="POST">
        <label for="">Mã đăng nhập*</label> <br>
         <input type="text" name="code" id=""> <br>

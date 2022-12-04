@@ -65,15 +65,10 @@
         
       }
       #dk{
-        border: 1px solid red;
-        text-decoration: none;
-        padding: 10px;
-        border-radius: 5px;
+        font-size: 20px;
+        color: white;
       }
-      #dk:hover{
-        color: red;
-        background-color: white;
-      }
+     
       button{
         cursor: pointer;
       }
@@ -96,13 +91,11 @@
         <button type="submit" name="btn-login" id="login">Tiếp theo</button> <br>
         
         <span><?php echo $Err?></span>
-       <a href=""><h4>Bạn quên mật khẩu?</h4></a> 
-        <div class="or">
-            <hr>
-          <p> Or </p>
-          <hr>
-        </div>
-     <a href="./sign_up.php" id="dk">Register account</a>  
+        <div class="pass" style="display:flex ; align-items:center ; justify-content:space-between ;">
+       <a href="./forgot_password.php"><h4>Bạn quên mật khẩu?</h4></a> 
+       <a id="dk" href="./sign_up.php">Đăng ký tài khoản</a>
+       </div>
+  
     </form>
     </div>
     

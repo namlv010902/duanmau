@@ -18,9 +18,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Siêu thị điện máy API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../src/images/logoap.png" type="image/x-icon" >
-    <script src="https://kit.fontawesome.com/969bec5078.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../src/css/style.css">
+    <script src="https://kit.fontawesome.com/969bec5078.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css">
 </head>
  <style>
@@ -42,11 +45,13 @@
     }
     td img{
         width: 100%;
+        
     }
-    #action{
+   
+    #action{    
+       
         display: flex;
         align-items: center;
-        justify-content: center;
     }
     #delete{
         color: red;
@@ -61,6 +66,20 @@
     #name{
         width: 220px;
     }
+    .right{
+        display: flex;
+        align-items: center;
+    }
+    table, tr,th,td{
+        border: none;
+     }
+     td{
+        background-color: white;
+       
+     }
+     tr{
+        border-bottom: 15px solid rgba(230, 234, 241, 1);
+     }
     
  </style>
 <body>
@@ -72,26 +91,30 @@
                 </div>
                 <h3>Admin tools</h3>
                 <div class="infomation">
-                <a href="./admin.php" id="but"><button><img src="../src/images/label.png" alt="">Product </button></a><br>
-                <a href="./categories.php"><button><img src="../src/images/label.png" alt="">Categories </button></a> <br>
+                <a href="../admin.php" id="but"><button  ><i class="fab fa-vaadin" style="margin-right:10px;"></i>Dashboard </button></a><br>
 
-                <a href="./users.php"><button><img src="../src/images/label.png" alt="">User </button> </a> <br>
-                <a href=""><button><img src="../src/images/caidat.png" alt=""> Settings</button></a>
-               
+                <a href="../product.php" id="but"><button><i class="fab fa-sketch" style="margin-right:10px;"></i>Product </button></a><br>
+                <a href="./category.php"><button><i class="fab fa-sellsy"  style="margin-right:10px;"></i>Categories </button></a> <br>
+
+                <a href="./user.php"><button style="background-color: #6C5DD3; border-left: 8px solid red;"><i class="fa fa-user-nurse"  style="margin-right:10px;"></i> User </button> </a> <br>
+                <a href="./comment.php"><button><i class="fa fa-comment-alt"  style="margin-right:10px;"></i></i>Comment</button></a>
+                <a href="./thong_ke.php"><button><i class="fab fa-deezer" style="margin-right:10px;"></i>Statistics </button></a>
+                <a href="./oder.php"><button><i class="fas fa-cart-plus" style="margin-right:10px;"></i>Oder</button></a>
+
                 
                 </div>
                 <h2>Insights</h2>
                 <div class="insi">
-                <button><img src="../src/images/inbox.png" alt="">In box</button>
-                <button><img src="../src/images/bell.png" alt="">Nofitication</button>
-                <button><img src="../src/images/coment.png" alt="">Comment</button>
+                <button><i class="fab fa-instalod" style="margin-right:10px;"></i>In box</button>
+                <button><i class="fab fa-gitlab" style="margin-right:10px;"></i>Nofitication</button>
+   
                 </div>
-                <button><img src="../src/images/help.png" alt=""> Helps</button>
+                <button> <i class="fab fa-earlybirds" style="margin-right:10px;"></i>Helps</button>
             </article>
             <aside>
                 <header>
                     <div class="left">
-                    <img id="avatar" src=".<?php echo $_SESSION["avatar"]?>" alt="">
+                    <img id="avatars" src=".<?php echo $_SESSION["avatar"]?>" alt="">
                     <div class="nam_tich_xanh">
                     <h2>Hi, <?php echo $_SESSION["username"]?></h2>
                     <img height="22px" src="../src/images/tichxanh.jpg"  alt="">
@@ -102,10 +125,17 @@
                     </div>
                     </div>
                     <div class="right">                         
-                        
-                        <button id="out">
-                      <a onclick="return confirm('Bạn có muốn đăng xuất không')" href="../controller/log_out.php">Log Out</a> 
-                        </button>
+                     <form action="">
+                   
+                      <button><i style="font-size: 25px;" class="fas fa-search"></i></button>
+                      <input placeholder="Search..." type="text">
+                     </form>
+                     <div class="bell" style="display:flex;">
+                     <i style="font-size:30px; margin-top:10px;" class="far fa-bell"></i>
+                     <p style=" display: flex; align-items: center; justify-content: center;color: white ; background-color:#FF754C ; height: 25px ; width:25px; border-radius: 50%;">3</p>
+                     </div>
+                       
+                       
                        
                     </div>
                 </header>
@@ -138,16 +168,18 @@
             <?php foreach($user as $key => $value):?>
             <tr>
                 <td><?php echo $key + 1?></td>
-                <td id="img_user"><img src=".<?php echo $value["avatar"]?>" alt=""></td>
-                <td id="name"><?php echo $value["id"]?></td>
+                <td id="img_user" style="width:130px; "><img src=".<?php echo $value["avatar"]?>" alt=""></td>
+                <td id="name" style="width:50px ;"><?php echo $value["id"]?></td>
                 <td id="name"><?php echo $value["username"]?></td>
                 <td><?php echo $value["password"]?></td>
                 <td id="mail"><?php echo $value["email"]?></td>
                 <td><?php echo $value["vaitro"]?></td>
                 <td><?php echo $value["kichhoat"]?></td>
                 <td id="action">
+                  
                     <a id="update" href="./update_user.php?id=<?php echo $value["id"]?>"><i class="fas fa-edit"></i></a>
                     <a id="delete" onclick="return confirm('Bạn có muốn xóa không ')" href="../controller/delete_user.php?id=<?php echo $value["id"]?>"><i class="fas fa-trash-alt"></i></a>
+                    
                 </td>
             </tr>
             <?php endforeach?>

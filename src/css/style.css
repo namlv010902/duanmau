@@ -4,23 +4,52 @@
     box-sizing: border-box;
 }
 
+.infomation button:hover{
+    padding-left: 40px;
+    cursor: pointer;
+    transition: ease-in-out 0.8s;
+}
 .container {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Quicksand',sans-serif;
     width: 1440px;
     margin: 0 auto;
-    padding-top: 25px;
+    padding-top: 15px;
 }
-
+.right button{
+    border: none;
+    background: none;
+}
+aside{
+    background: rgba(248, 249, 250, 1);
+}
+.right form input{
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 20px;
+  }
+  .right form{
+    border: none;
+    border-radius: 15px;
+    background-color: white;
+    margin-right: 30px;
+    padding-left: 10px;
+  }
 main {
     display: flex;
 
 }
 
 article {
-
+    background-color: rgba(47, 53, 58, 1);
     width: 17%;
     border-right: 2px solid black;
     text-align: center;
+    padding-top: 20px;
+    border-radius: 15px;
+   
+   
 }
 
 h3 {
@@ -33,40 +62,38 @@ h3 {
 }
 
 article button {
-    width: 90%;
-    background-color: white;
+    width: 100%;
+   
     border: none;
     height: 50px;
     border-radius: 5px;
     display: flex;
     align-items: center;
     font-size: 20px;
-    background-color: #6C5DD3;
+    background: none;
     color: white;
-    padding-left: 10px;
+    padding-left: 20px;
 
 }
-
+.left{
+    text-align: center;
+    margin-left: 50px;
+}
 article a {
     text-decoration: none;
 }
 
-article button:hover {
-    background-color: red;
-    /* background-color: #6C5DD3; */
-    color: white;
 
-
-}
 
 button img {
     margin-right: 5px;
 }
 
-#avatar {
-    width: 20%;
+#avatars {
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
-    margin-left: 30px;
+    
 }
 
 aside {
@@ -182,16 +209,20 @@ table {
     font-size: 23px;
 
 }
-
-#add {
-    font-size: 22px;
+#add{
+    border: 2px dashed #6C5DD3;
+    font-size: 20px;
     padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: darkslategray;
-    color: white;
-    margin: 10px 0;
+    border-radius: 10px;
+    margin: 20px;
 }
+#add:hover{
+    background-color: #6C5DD3;
+    color: white;
+    
+    transition: 1s;
+}
+
 
 #out {
     border: none;
@@ -213,10 +244,17 @@ table {
 
 article h2 {
     margin-top: 10px;
+    color: white;
+    background-color: black;
+    padding: 10px 0;
+    border-radius: 10px;
 }
-
+article h3{
+    color: white;
+}
 .insi button {
     margin: 5px 0;
+    
 }
 
 td {

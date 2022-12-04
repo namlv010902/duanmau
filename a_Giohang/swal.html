@@ -9,19 +9,20 @@
 </head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
 <body>
-    <form action="" method="post">
+   
         <img src="../src/images/tichxanh.jpg" alt="">
-        <button type="submit">Đặt hàng</button>
-    </form>
+    <a href="">  <button type="" class="cart">Đặt hàng</button></a>  
+           
+    
 
 </body>
 <script>
-    document.querySelector('button').addEventListener('click',(event)=>{
+    document.querySelector('.cart').addEventListener('click',()=>{
          event.preventDefault();
          Swal.fire({
          position: 'center',
          icon: 'success',
-         title: 'Lê Văn Nam ',
+         title: 'Vú Thị Nam',
          showConfirmButton: false,
          timer: 1500
 })

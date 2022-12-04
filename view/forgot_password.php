@@ -1,43 +1,42 @@
 <?php
      session_start();
      
-     include_once "../mail/index.php" ;
-     $mail = new Mailer();
+     
      include "../model/connect.php"; 
-     $query = "select * from users"; 
-     $users = getAll($query); 
+      
      $Err="";
      $codeErr= $mailErr="";
      $code=$mail="";
- 
-     foreach($users as $value){ 
-         if(isset($_POST["btn-login"])){ 
-
-              if(empty($_POST["code"]) || empty($_POST["mail"])){                    
-                if(empty($_POST["code"])){
-                  $codeErr="Code is requied";
-                }else{
-                  $code=$_POST["code"];
-                };
-                if(empty($_POST["mail"])){
-                  $mailErr="Mail is requied";
-                }else{
-                  $mail=$_POST["mail"];
-                };
-             
-             }else{
-                 if($_POST["code"] == $value["id"] && $_POST["mail"] == $value["email"]){
-                  
-                  $_SESSION["id"]= $_POST["code"];
-                  header("location:./code_pass.php");
-                 }else{
-                  $Err = "Mã đăng nhập hoặc email sai";
-                 }
-
+     $pass="";
+       
+         if(isset($_POST["btn-login"])){           
+              if(!empty($_POST["code"]) && !empty($_POST["mail"])){ 
+                $code = $_POST["code"];
+                $query = "select * from users where id like n'$code'"; 
+                $users = getOne($query);
+                if($_POST["code"] == $users["id"] && $_POST["mail"] == $users["email"]){
+                $pass=$users["password"];
+                   
+              }else{
+                $Err="Sai mã hoặc mail";     
              }
                        
+             }else{
+              if(empty($_POST["code"])){
+                $codeErr="Code is requied";
+              }else{
+                $code=$_POST["code"];
+              };
+              if(empty($_POST["mail"])){
+                $mailErr="Mail is requied";
+              }else{
+                $mail=$_POST["mail"];
+              };
+           
              }
+             
          }
+        
 
        
     ?>
@@ -95,15 +94,17 @@
         <span id="err"><?php echo $codeErr?></span> <br>
         <label for="">Email*</label><br>
         <input type="text" name="mail" id=""> <br>
-        <span id="err"><?php echo $mailErr?></span> <br>
-        <button type="submit" name="btn-login" id="login">Tìm lại mật khẩu</button> <br>     
-        <span><?php echo $Err?></span> 
-        <div class="or">
-            <hr>
-          <p> Or </p>
-          <hr>
-        </div>
-     <a href="./sign_up.php" id="dk">Register account</a>  
+        <span id="err"><?php echo $mailErr?></span> <br>   
+        <button type="submit" name="btn-login" id="login">Tìm lại mật khẩu</button> <br> 
+        <span><?php echo $Err?></span> <br>
+
+        <span><?php echo $pass ?></span> <br>
+       
+        <a href="./login.php" style="font-size:25px; color: white ; ">Đăng nhập ngay</a><br>
+       
+      
+       
+      
     </form>
     </div>
     

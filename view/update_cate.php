@@ -64,37 +64,67 @@
     #err{
         color: red;
     }
+    .form label{
+        font-size: 20px;
+    }
+    .form{
+        background-color: #ffff;
+        width: 50%;
+        margin: auto;
+    }
+    .form input{
+       font-size: 20px;
+       padding: 10px;
+       width: 100%;
+       border-radius: 5px;
+       border: 2px solid #6C5DD3;
+       
+    }
+    .form button{
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 5px;
+        background-color: #FF754C;
+        color: white;
+        border: none;
+       
+    }
+    
     
  </style>
 <body>
     <div class="container">
         <main>
-            <article>
+        <article>
                 <div class="logo">
                     <img src="../src/images/logoap.png" alt="">
                 </div>
                 <h3>Admin tools</h3>
                 <div class="infomation">
-                <a href="./admin.php" id="but"><button><img src="../src/images/label.png" alt="">Product </button></a><br>
-                <a href="./categories.php"><button><img src="../src/images/label.png" alt="">Categories </button></a> <br>
+                <a href="../admin.php" id="but"><button ><i class="fab fa-vaadin" style="margin-right:10px;"></i>Dashboard </button></a><br>
 
-                <a href="./users.php"><button><img src="../src/images/label.png" alt="">User </button> </a> <br>
-                <a href=""><button><img src="../src/images/caidat.png" alt=""> Settings</button></a>
+                <a href="../product.php" id="but"><button><i class="fab fa-sketch" style="margin-right:10px;"></i>Product </button></a><br>
+                <a href="./category.php"><button style="background-color:#6C5DD3; cursor: pointer; border-left: 8px solid red; "><i class="fab fa-sellsy"  style="margin-right:10px;"></i>Categories </button></a> <br>
+
+                <a href="./user.php"><button><i class="fa fa-user-nurse"  style="margin-right:10px;"></i> User </button> </a> <br>
+                <a href="./comment.php"><button><i class="fa fa-comment-alt"  style="margin-right:10px;"></i></i>Comment</button></a>
+                <a href="./thong_ke.php"><button><i class="fab fa-deezer" style="margin-right:10px;"></i>Statistics</button></a>
+                <a href="./oder.php"><button><i class="fas fa-cart-plus" style="margin-right:10px;"></i>Oder</button></a>
                
                 
                 </div>
                 <h2>Insights</h2>
                 <div class="insi">
-                <button><img src="../src/images/inbox.png" alt="">In box</button>
-                <button><img src="../src/images/bell.png" alt="">Nofitication</button>
-                <button><img src="../src/images/coment.png" alt="">Comment</button>
+                <button><i class="fab fa-instalod" style="margin-right:10px;"></i>In box</button>
+                <button><i class="fab fa-gitlab" style="margin-right:10px;"></i>Nofitication</button>
+               
                 </div>
-                <button><img src="../src/images/help.png" alt=""> Helps</button>
+           <button > <a href="./controller/log_out.php" style="color: white;"> <i style="color: white;margin-right: 10px;" class="fas fa-sign-out" style="margin-right:10px; "></i>Log Out</a> </button>  
             </article>
             <aside>
                 <header>
                     <div class="left">
-                    <img id="avatar" src="<?php echo $_SESSION["avatar"]?>" alt="">
+                    <img id="avatars" src=".<?php echo $_SESSION["avatar"]?>" alt="">
                     <div class="nam_tich_xanh">
                     <h2>Hi, <?php echo $_SESSION["username"]?></h2>
                     <img height="22px" src="../src/images/tichxanh.jpg"  alt="">
@@ -104,11 +134,18 @@
                         <img src="../src/images/medal.png" alt="">
                     </div>
                     </div>
-                    <div class="right">                         
-                        
-                        <button id="out">
-                      <a onclick="return confirm('Bạn có muốn đăng xuất không')" href="../controller/log_out.php">Log Out</a> 
-                        </button>
+                    <div class="right" style="display: flex; align-items: center;">                         
+                     <form action="">
+                   
+                      <button><i style="font-size: 25px;" class="fas fa-search"></i></button>
+                      <input placeholder="Search..." type="text">
+                     </form>
+                     <div class="bell" style="display:flex;">
+                     <i style="font-size:30px; margin-top:10px;" class="far fa-bell"></i>
+                     <p style=" display: flex; align-items: center; justify-content: center;color: white ; background-color:#FF754C ; height: 25px ; width:25px; border-radius: 50%;">3</p>
+                     </div>
+                       
+                       
                        
                     </div>
                 </header>
@@ -123,15 +160,17 @@
                     </div>
                 </div>
                
-                 <h1>Add new category</h1>
+                 <h1 style="text-align: center;">Thêm mới danh mục</h1>
+                 <div class="form">
                  <form action="../controller/update_category.php" method="POST">
-                  <label for="">CategoryName</label><br>
+                  <label for="">Tên danh mục</label><br>
                   <input type="text" name="id" value="<?php echo $item["id"]?>" hidden>
                   <input type="text" name="cateName" value="<?php echo $item["categoryName"]?>" > <br>
                   <span id="err"><?php echo $Err?></span> <br>
                   <button type="submit" name="submit">Update</button>
                    
                  </form>
+                 </div>
             </aside>
         </main>
     </div>

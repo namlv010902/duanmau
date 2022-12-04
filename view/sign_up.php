@@ -6,12 +6,19 @@ if (isset($_POST["btn-add"])) {
     if (empty($_POST["code"])) {
         $codeErr = "Mã đăng nhập không được bỏ trống";
     } else {
-        $code = ($_POST["code"]);
+        $code = $_POST["code"];
+        $query= "select * from users where id like n'$code'";
+        $users = getAll($query); 
+        if(count($users) != 0){
+            $codeErr="Mã đăng nhập đã tồn tại";
+    
+        }
+
     };
     if (empty($_POST["names"])) {
         $nameErr = "Tên không được bỏ trống";
     } else {
-        $name = ($_POST["names"]);
+        $name = $_POST["names"];
     };
 
     if (empty($_FILES["image"]["name"])) {
@@ -23,7 +30,7 @@ if (isset($_POST["btn-add"])) {
     if (empty($_POST["pass"])) {
         $passErr = "Mật khẩu không được bỏ trống";
     } else {
-        $pass = ($_POST["pass"]);
+        $pass = $_POST["pass"];
     };
    
     if (empty($_POST["email"])) {
@@ -37,34 +44,37 @@ if (isset($_POST["btn-add"])) {
 
     if (empty($_POST["re_pass"])) {
         $re_passErr = "Xác nhận mật khẩu không được bỏ trống";
-    } else if (($_POST["pass"]) != ($_POST["re_pass"])) {
+    } else if ($_POST["pass"] != $_POST["re_pass"]) {
         $re_passErr = "Mật khẩu không trùng khớp";
     } else {
-        $re_pass = ($_POST["re_pass"]);
+        $re_pass = $_POST["re_pass"];
     };
 }
-if(!empty($_POST["names"]) && !empty( $_FILES["image"]["name"]) && !empty($_POST["pass"]) && !empty($_POST["code"]) && !empty($_POST["re_pass"]) && !empty($_POST["email"])){
-    $name = $_POST["names"];
-    $query= "select * from users where userName like '$name'";
-    $users = getAll($query); 
-    if(count($users) != 0){
-        $nameErr="Tài khoản đã tồn tại";
-
-    }else{
-   $code=$_POST["code"];
+if(!empty($_POST["names"]) && !empty( $_FILES["image"]["name"]) && !empty($_POST["pass"]) && !empty($_POST["code"]) && !empty($_POST["re_pass"]) && !empty($_POST["email"]) && ($_POST["re_pass"] == $_POST["pass"]) ){
+   
+   
+        $code = $_POST["code"];
+        $query= "select * from users where id like n'$code'";
+        $users = getAll($query); 
+        if(count($users) != 0){
+            $codeErr="Mã đăng nhập đã tồn tại";
+    
+        }else{
 
     $userName = $_POST["names"];
     $avatar = $_FILES["image"]["name"];
     $password = $_POST["pass"];
-  
+    $vaitro = $_POST["vaitro"];
     $email = $_POST["email"];
-    $query = "insert into users(id,username,avatar,password,email) values('$code','$userName','./src/images/$avatar','$password','$email') ";
+    $kichhoat= $_POST["kichhoat"];
+    $query = "insert into users(id,username,avatar,password,email,vaitro,kichhoat) values('$code','$userName','./src/images/$avatar','$password','$email','$vaitro','$kichhoat') ";
     connect($query);
     move_uploaded_file($_FILES["image"]["tmp_name"],"../src/images/".$_FILES["image"]["name"]);
 
-    header("location:../admin.php"); 
+    header("location:./login.php"); 
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -89,11 +99,14 @@ if(!empty($_POST["names"]) && !empty( $_FILES["image"]["name"]) && !empty($_POST
     border: 1px solid red;
     color: red;
     }
+    form input,button{
+        margin-top: 0px;
+    }
 </style>
 
 <body>
     <div class="container">
-        <h1>Đăng Ký Users</h1>
+        <h1>Đăng Ký tài khoản</h1>
         <div class="form">
             <form action="" method="POST" enctype="multipart/form-data">
                 <label for="">Mã đăng nhập*</label> <br>
@@ -103,7 +116,7 @@ if(!empty($_POST["names"]) && !empty( $_FILES["image"]["name"]) && !empty($_POST
                 <input type="text" name="names" id=""> <br>
                 <span id="err"><?php echo $nameErr ?></span> <br>
                 <label for="">Ảnh đại diện*</label> <br>
-                <input type="file" name="image"><br>
+                <input type="file" name="image" style="border:none ;"><br>
                 <span id="err"><?php echo $imageErr ?></span> <br>
                 <label for="">Mật khẩu*</label> <br>
                 <input type="password" name="pass" id=""> <br>
@@ -114,7 +127,8 @@ if(!empty($_POST["names"]) && !empty( $_FILES["image"]["name"]) && !empty($_POST
                 <label for="">Email*</label><br>
                 <input type="text" name="email" id=""> <br>
                 <span id="err"><?php echo $emailErr ?></span> <br>
-
+                 <input type="radio" value="Khách hàng" name="vaitro" checked hidden>
+                 <input type="radio" value="Kích hoạt" name="kichhoat" checked hidden>
                 <button id="dk" type="submit" name="btn-add">Đăng ký ngay</button>
 
             </form>

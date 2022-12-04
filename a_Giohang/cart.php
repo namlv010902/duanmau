@@ -10,9 +10,9 @@
         $_SESSION["cart"][$id]["productName"]= $product["productName"];
         $_SESSION["cart"][$id]["productPrice"]= $product["productPrice"];
         $_SESSION["cart"][$id]["quantity"]= 1;
-       
+  
      }else{
-    
+       
        $_SESSION["cart"][$id]["quantity"]++;
      }
     
